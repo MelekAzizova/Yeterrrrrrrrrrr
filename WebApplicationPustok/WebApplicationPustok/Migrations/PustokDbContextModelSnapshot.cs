@@ -32,11 +32,13 @@ namespace WebApplicationPustok.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.HasKey("Id");
 
@@ -76,29 +78,6 @@ namespace WebApplicationPustok.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("WebApplicationPustok.Models.BlogAuthor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogAuthor");
                 });
 
             modelBuilder.Entity("WebApplicationPustok.Models.BlogTag", b =>
@@ -331,25 +310,6 @@ namespace WebApplicationPustok.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("WebApplicationPustok.Models.BlogAuthor", b =>
-                {
-                    b.HasOne("WebApplicationPustok.Models.Author", "Author")
-                        .WithMany("BlogAuthors")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplicationPustok.Models.Blog", "Blog")
-                        .WithMany("BlogAuthor")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Blog");
-                });
-
             modelBuilder.Entity("WebApplicationPustok.Models.BlogTag", b =>
                 {
                     b.HasOne("WebApplicationPustok.Models.Blog", "Blog")
@@ -410,15 +370,8 @@ namespace WebApplicationPustok.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("WebApplicationPustok.Models.Author", b =>
-                {
-                    b.Navigation("BlogAuthors");
-                });
-
             modelBuilder.Entity("WebApplicationPustok.Models.Blog", b =>
                 {
-                    b.Navigation("BlogAuthor");
-
                     b.Navigation("BlogTags");
                 });
 

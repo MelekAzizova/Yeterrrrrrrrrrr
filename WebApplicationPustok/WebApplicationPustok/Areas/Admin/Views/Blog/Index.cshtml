@@ -21,7 +21,7 @@
                 <th>CreatAt</th>
                 <th>UpdatAt</th>
                 <th>IsDeleted</th>
-                <th>Tags</th>
+               @*  <th>Tags</th> *@
                
 
                 <th class="text-center" colspan="2">Action</th>
@@ -37,7 +37,7 @@
                             <td>@item.CreatAt</td>
                             <td>@item.UpdatAt</td>
                             <td>@item.IsDeleted</td>
-                            <td>@item.TagIds</td>
+                           @*  <td>@item.TagIds</td> *@
                             <td class="text-center"><a class="btn btn-outline-info" asp-action="Update" asp-route-id="@item.Id">Update</a></td>
                             <td class="text-center"><a class="btn btn-outline-info" asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
 

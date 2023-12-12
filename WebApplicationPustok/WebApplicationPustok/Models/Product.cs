@@ -5,6 +5,7 @@ namespace WebApplicationPustok.Models
 {
     public class Product
     {
+        
         public int Id { get; set; }
         [MaxLength(64)]
         public string Name { get; set; }
@@ -18,12 +19,9 @@ namespace WebApplicationPustok.Models
         [Range(0, 100)]
         public float Discount { get; set; }
         public ushort Quantity { get; set; }
-        
         public string ProductCode { get; set; }
         public string ImagrUrl {  get; set; }
-      
         public int  ProductId { get; set; }
-        //public List<ProductImages>? productImages { get; set; }
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public bool IsDeleted { get; set; } = false;

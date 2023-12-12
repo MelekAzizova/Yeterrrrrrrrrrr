@@ -55,7 +55,7 @@ namespace WebApplicationPustok.Controllers
             {
 
                 // ViewBag.Categories = _db.Categories;
-                ViewBag.Tags=_db.Tags.ToList();
+                //ViewBag.Tags=_db.Tags.ToList();
 
                 ViewBag.Categories = _db.Categories.ToList();
                 return View();
@@ -78,7 +78,7 @@ namespace WebApplicationPustok.Controllers
             }
             if (!ModelState.IsValid)
             {
-                ViewBag.Tags = _db.Tags;
+                //ViewBag.Tags = _db.Tags;
                 ViewBag.Categories = _db.Categories.ToList();
                
                 return View(vm);
@@ -89,14 +89,31 @@ namespace WebApplicationPustok.Controllers
 
                 return View(vm);
             }
-            
-            if (await _db.Tags.Where(c => vm.TagIds.Contains(c.Id)).Select(c => c.Id).CountAsync() != vm.TagIds.Count())
+            //images null deyilse ve count 0dan boyukdeuse
+            if (vm.Images?.Count() > 0)
             {
-                ModelState.AddModelError("ColorIds", "Color doesnt exist");
-                ViewBag.Categories = _db.Categories;
-                ViewBag.Colors = new SelectList(_db.Tags, "Id", "Name");
-                return View(vm);
+               
+                foreach(var img in vm.Images)
+                {
+                    if (!img.IsCorrectType())
+                    {
+                        ModelState.AddModelError("Image", "Wrong file type("+ img.FileName+")");
+                    }
+                    if (!img.IsValidSize(20f))
+                    {
+                        ModelState.AddModelError("Image", "Wrong file size(" + img.FileName + ")");
+                    }
+                    
+
+                }
             }
+            //if (await _db.Tags.Where(c => vm.TagIds.Contains(c.Id)).Select(c => c.Id).CountAsync() != vm.TagIds.Count())
+            //{
+            //    ModelState.AddModelError("ColorIds", "Color doesnt exist");
+            //    ViewBag.Categories = _db.Categories;
+            //    ViewBag.Colors = new SelectList(_db.Tags, "Id", "Name");
+            //    return View(vm);
+            //}
 
             Product product = new Product
             {
@@ -109,9 +126,13 @@ namespace WebApplicationPustok.Controllers
                 Quantity = vm.Quantity,
                 SellPrice = vm.SellPrice,
                 ProductCode = vm.ProductCode,
-                
+
                 CategoryId = vm.CategoryId,
-                ImagrUrl = await vm.ImgFile.SaveAsync(PathConstants.Product)
+                ImagrUrl = await vm.ImgFile.SaveAsync(PathConstants.Product),
+                ProductImages = vm.Images.Select( s => new ProductImages
+                {
+                    ImageUrl =  s.SaveAsync(PathConstants.Product).Result
+                }).ToList()
                 
             };
             //IList<TagProduct> list= new List<TagProduct>();

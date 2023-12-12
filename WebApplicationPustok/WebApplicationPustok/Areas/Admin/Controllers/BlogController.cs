@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.Intrinsics.Arm;
 using WebApplicationPustok.Context;
 using WebApplicationPustok.Models;
 using WebApplicationPustok.ViewModel.BlogVM;
-using WebApplicationPustok.ViewModel.TagVM;
 
 namespace WebApplicationPustok.Areas.Admin.Controllers
 {
@@ -30,7 +27,7 @@ namespace WebApplicationPustok.Areas.Admin.Controllers
                 UpdatAt = DateTime.Now,
                 IsDeleted = false,
                 
-
+                
             }).ToListAsync();
             return View(items);
             

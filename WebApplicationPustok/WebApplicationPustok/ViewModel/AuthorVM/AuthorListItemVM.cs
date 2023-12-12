@@ -7,6 +7,6 @@ namespace WebApplicationPustok.ViewModel.AuthorVM
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public ICollection<BlogAuthor>? BlogAuthors { get; set; }
+        
     }
 }
