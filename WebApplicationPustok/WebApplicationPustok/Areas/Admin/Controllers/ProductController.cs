@@ -42,11 +42,8 @@ namespace WebApplicationPustok.Controllers
                 SellPrice = p.SellPrice,
                 ProductCode = p.ProductCode,
                 ImgFile = p.ImagrUrl,
-              
-   
-
                 CategoryId = p.CategoryId
-                
+            
 
 
             }).ToListAsync();

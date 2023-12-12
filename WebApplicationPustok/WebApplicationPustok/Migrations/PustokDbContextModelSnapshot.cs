@@ -78,6 +78,52 @@ namespace WebApplicationPustok.Migrations
                     b.ToTable("Blogs");
                 });
 
+            modelBuilder.Entity("WebApplicationPustok.Models.BlogAuthor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("BlogId");
+
+                    b.ToTable("BlogAuthor");
+                });
+
+            modelBuilder.Entity("WebApplicationPustok.Models.BlogTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("BlogTag");
+                });
+
             modelBuilder.Entity("WebApplicationPustok.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -145,6 +191,9 @@ namespace WebApplicationPustok.Migrations
 
                     b.Property<decimal>("SellPrice")
                         .HasColumnType("smallmoney");
+
+                    b.Property<int>("TagIds")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasMaxLength(128)
@@ -274,12 +323,50 @@ namespace WebApplicationPustok.Migrations
             modelBuilder.Entity("WebApplicationPustok.Models.Blog", b =>
                 {
                     b.HasOne("WebApplicationPustok.Models.Author", "Author")
-                        .WithMany("Blogs")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("WebApplicationPustok.Models.BlogAuthor", b =>
+                {
+                    b.HasOne("WebApplicationPustok.Models.Author", "Author")
+                        .WithMany("BlogAuthors")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplicationPustok.Models.Blog", "Blog")
+                        .WithMany("BlogAuthor")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Blog");
+                });
+
+            modelBuilder.Entity("WebApplicationPustok.Models.BlogTag", b =>
+                {
+                    b.HasOne("WebApplicationPustok.Models.Blog", "Blog")
+                        .WithMany("BlogTags")
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplicationPustok.Models.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blog");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("WebApplicationPustok.Models.Product", b =>
@@ -325,7 +412,14 @@ namespace WebApplicationPustok.Migrations
 
             modelBuilder.Entity("WebApplicationPustok.Models.Author", b =>
                 {
-                    b.Navigation("Blogs");
+                    b.Navigation("BlogAuthors");
+                });
+
+            modelBuilder.Entity("WebApplicationPustok.Models.Blog", b =>
+                {
+                    b.Navigation("BlogAuthor");
+
+                    b.Navigation("BlogTags");
                 });
 
             modelBuilder.Entity("WebApplicationPustok.Models.Category", b =>

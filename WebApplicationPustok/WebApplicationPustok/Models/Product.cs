@@ -27,7 +27,7 @@ namespace WebApplicationPustok.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public bool IsDeleted { get; set; } = false;
-        
+        public int TagIds { get; set; }
         public ICollection<TagProduct>? TagProducts { get; set; }
         public ICollection<ProductImages>? ProductImages { get; set; } 
     }

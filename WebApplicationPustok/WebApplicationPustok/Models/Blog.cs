@@ -10,6 +10,8 @@
         public DateTime CreatAt { get; set; } 
         public DateTime UpdatAt { get; set; }
         public bool IsDeleted { get; set; }
+        public ICollection<BlogAuthor>? BlogAuthor { get; set;}
+        public ICollection<BlogTag>? BlogTags { get; set;}
         
     }
 }
