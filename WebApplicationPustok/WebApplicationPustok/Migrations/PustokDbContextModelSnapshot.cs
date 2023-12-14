@@ -207,6 +207,50 @@ namespace WebApplicationPustok.Migrations
                     b.ToTable("ProductImages");
                 });
 
+            modelBuilder.Entity("WebApplicationPustok.Models.Settings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AccountIcon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Settings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccountIcon = "<i class='fa fa-user-o'></i>",
+                            Address = "Baku, Ayna Sultanova st. 221",
+                            Email = "melek.azizova47@gmail.com",
+                            Logo = "assets/img/logo.png",
+                            Number = "+994707094535"
+                        });
+                });
+
             modelBuilder.Entity("WebApplicationPustok.Models.Slider", b =>
                 {
                     b.Property<int>("Id")

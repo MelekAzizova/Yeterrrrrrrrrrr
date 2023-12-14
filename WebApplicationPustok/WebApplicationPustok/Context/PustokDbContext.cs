@@ -18,7 +18,24 @@ namespace WebApplicationPustok.Context
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagProduct> TagsProduct { get; set; }
         public DbSet<ProductImages> ProductImages { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Setting>()
+                .HasData(new Setting
+                {
+                    Address = "Baku, Ayna Sultanova st. 221",
+                    Email = "melek.azizova47@gmail.com",
+                    Number = "+994707094535",
+                  
+                    Logo = "assets/img/logo.png",
+                    AccountIcon = "<i class='fa fa-user-o'></i>",
+                    Id = 1
+                });
+            base.OnModelCreating(modelBuilder);
+        }
         
-      
+
+
     }
 }

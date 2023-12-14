@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿﻿@using WebApplicationPustok.Helpers
+@using WebApplicationPustok.Models
+@inject LayoutService service;
+@{
+    Setting setting = await service.GetSettingsAsync();
+}
+<!DOCTYPE html>
 <html lang="zxx">
 
 
@@ -21,17 +27,17 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 ">
                             <a href="index.html" class="site-brand">
-                                <img src="image/logo.png" alt="">
+                                <img src="~/@setting.Logo" alt="">
                             </a>
                         </div>
                         <div class="col-lg-3">
                             <div class="header-phone ">
                                 <div class="icon">
-                                    <i class="fas fa-headphones-alt"></i>
+                                    <i class="@Html.Raw(setting.AccountIcon)"></i>
                                 </div>
                                 <div class="text">
                                     <p>Free Support 24/7</p>
-                                    <p class="font-weight-bold number">+01-202-555-0181</p>
+                                    <p class="font-weight-bold number">@setting.Number</p>
                                 </div>
                             </div>
                         </div>
@@ -532,13 +538,11 @@
                                 <div class="footer-contact">
                                     <p>
                                         <span class="label">Address:</span><span class="text">
-                                            Example Street 98, HH2 BacHa, New
-                                            York,
-                                            USA
+                                           @setting.Address
                                         </span>
                                     </p>
-                                    <p><span class="label">Phone:</span><span class="text">+18088 234 5678</span></p>
-                                    <p><span class="label">Email:</span><span class="text">suport@hastech.com</span></p>
+                                    <p><span class="label">Phone:</span><span class="text">@setting.Number</span></p>
+                                    <p><span class="label">Email:</span><span class="text">@setting.Email</span></p>
                                 </div>
                             </div>
                         </div>
@@ -606,7 +610,7 @@
                             magna volutpat, posuere eros
                         </p>
                         <a href="#" class="payment-block">
-                            <img src="image/icon/payment.png" alt="">
+                            <img src="@Html.Raw(setting.AccountIcon)" alt="">
                         </a>
                         <p class="copyright-text">
                             Copyright © 2019 <a href="#" class="author">Pustok</a>. All Right Reserved.

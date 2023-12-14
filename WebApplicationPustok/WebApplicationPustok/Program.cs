@@ -17,8 +17,8 @@ namespace WebApplicationPustok
             builder.Services.AddDbContext<PustokDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("MSSql")));
 
-            
 
+            builder.Services.AddScoped<LayoutService>();
             var app = builder.Build();
             
             // Configure the HTTP request pipeline.
